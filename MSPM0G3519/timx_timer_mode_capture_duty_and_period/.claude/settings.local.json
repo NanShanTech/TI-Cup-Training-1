@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//D/ti/ccs2051/mspm0_sdk_2_10_00_04/**)",
+      "Read(//D/ti/ccs2051/ccs/utils/sysconfig_1.27.1/**)",
+      "Read(//D/ti/ccs2051/sysconfig_1.26.2/**)",
+      "Read(//D/ti/ccs2051/ti_cgt_arm_llvm_4.0.2.LTS/**)"
+    ]
+  }
+}

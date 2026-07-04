@@ -1,0 +1,17 @@
+"./timx_timer_mode_capture_duty_and_period.o"
+"./ti_msp_dl_config.o"
+"./startup_mspm0g351x_ticlang.o"
+"./App/dsp/dsp_adaptive.o"
+"./App/dsp/dsp_analyze.o"
+"./App/dsp/dsp_filter.o"
+"./App/fft/fft_analyzer.o"
+"./App/fft/fft_analyzer_q15.o"
+"./App/hmi/hmi.o"
+"./BSP/bsp.o"
+"./BSP/delay/delay.o"
+"./BSP/uart/uart.o"
+"./My_Task/tasks.o"
+"./Scheduler/scheduler.o"
+-l"./device_linker.cmd"
+-ldevice.cmd.genlibs
+-llibc.a
