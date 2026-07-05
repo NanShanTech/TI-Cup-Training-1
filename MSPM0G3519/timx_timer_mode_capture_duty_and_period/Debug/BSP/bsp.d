@@ -2,7 +2,7 @@
 
 BSP/bsp.o: ../BSP/bsp.c \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h \
- D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/delay/delay.h \
+ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h \
  ti_msp_dl_config.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/devices/msp/msp.h \
@@ -89,7 +89,7 @@ BSP/bsp.o: ../BSP/bsp.c \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_interrupt.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_systick.h
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h:
-D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/delay/delay.h:
+D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h:
 ti_msp_dl_config.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/devices/msp/msp.h:

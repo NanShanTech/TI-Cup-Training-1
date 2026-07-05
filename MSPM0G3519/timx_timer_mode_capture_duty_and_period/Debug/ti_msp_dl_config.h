@@ -82,29 +82,54 @@ extern "C" {
 /* Defines for SYSPLL_ERR_01 Workaround */
 /* Represent 1.000 as 1000 */
 #define FLOAT_TO_INT_SCALE                                               (1000U)
-#define FCC_EXPECTED_RATIO                                                  2000
+#define FCC_EXPECTED_RATIO                                                  2500
 #define FCC_UPPER_BOUND                       (FCC_EXPECTED_RATIO * (1 + 0.003))
 #define FCC_LOWER_BOUND                       (FCC_EXPECTED_RATIO * (1 - 0.003))
 
 bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 
 
-/* Defines for UART_0 */
-#define UART_0_INST                                                        UART0
-#define UART_0_INST_FREQUENCY                                           40000000
-#define UART_0_INST_IRQHandler                                  UART0_IRQHandler
-#define UART_0_INST_INT_IRQN                                      UART0_INT_IRQn
-#define GPIO_UART_0_RX_PORT                                                GPIOA
-#define GPIO_UART_0_TX_PORT                                                GPIOA
-#define GPIO_UART_0_RX_PIN                                        DL_GPIO_PIN_11
-#define GPIO_UART_0_TX_PIN                                        DL_GPIO_PIN_10
-#define GPIO_UART_0_IOMUX_RX                                     (IOMUX_PINCM22)
-#define GPIO_UART_0_IOMUX_TX                                     (IOMUX_PINCM21)
-#define GPIO_UART_0_IOMUX_RX_FUNC                      IOMUX_PINCM22_PF_UART0_RX
-#define GPIO_UART_0_IOMUX_TX_FUNC                      IOMUX_PINCM21_PF_UART0_TX
-#define UART_0_BAUD_RATE                                                  (9600)
-#define UART_0_IBRD_40_MHZ_9600_BAUD                                       (260)
-#define UART_0_FBRD_40_MHZ_9600_BAUD                                        (27)
+/* Defines for TIMER_0 */
+#define TIMER_0_INST                                                     (TIMA0)
+#define TIMER_0_INST_IRQHandler                                 TIMA0_IRQHandler
+#define TIMER_0_INST_INT_IRQN                                   (TIMA0_INT_IRQn)
+#define TIMER_0_INST_LOAD_VALUE                                          (1249U)
+#define TIMER_0_INST_PUB_0_CH                                                (1)
+
+
+
+/* Defines for XDS */
+#define XDS_INST                                                           UART0
+#define XDS_INST_FREQUENCY                                              40000000
+#define XDS_INST_IRQHandler                                     UART0_IRQHandler
+#define XDS_INST_INT_IRQN                                         UART0_INT_IRQn
+#define GPIO_XDS_RX_PORT                                                   GPIOA
+#define GPIO_XDS_TX_PORT                                                   GPIOA
+#define GPIO_XDS_RX_PIN                                           DL_GPIO_PIN_11
+#define GPIO_XDS_TX_PIN                                           DL_GPIO_PIN_10
+#define GPIO_XDS_IOMUX_RX                                        (IOMUX_PINCM22)
+#define GPIO_XDS_IOMUX_TX                                        (IOMUX_PINCM21)
+#define GPIO_XDS_IOMUX_RX_FUNC                         IOMUX_PINCM22_PF_UART0_RX
+#define GPIO_XDS_IOMUX_TX_FUNC                         IOMUX_PINCM21_PF_UART0_TX
+#define XDS_BAUD_RATE                                                   (115200)
+#define XDS_IBRD_40_MHZ_115200_BAUD                                         (21)
+#define XDS_FBRD_40_MHZ_115200_BAUD                                         (45)
+/* Defines for HMI */
+#define HMI_INST                                                           UART3
+#define HMI_INST_FREQUENCY                                              80000000
+#define HMI_INST_IRQHandler                                     UART3_IRQHandler
+#define HMI_INST_INT_IRQN                                         UART3_INT_IRQn
+#define GPIO_HMI_RX_PORT                                                   GPIOC
+#define GPIO_HMI_TX_PORT                                                   GPIOC
+#define GPIO_HMI_RX_PIN                                            DL_GPIO_PIN_7
+#define GPIO_HMI_TX_PIN                                            DL_GPIO_PIN_6
+#define GPIO_HMI_IOMUX_RX                                        (IOMUX_PINCM85)
+#define GPIO_HMI_IOMUX_TX                                        (IOMUX_PINCM84)
+#define GPIO_HMI_IOMUX_RX_FUNC                         IOMUX_PINCM85_PF_UART3_RX
+#define GPIO_HMI_IOMUX_TX_FUNC                         IOMUX_PINCM84_PF_UART3_TX
+#define HMI_BAUD_RATE                                                     (9600)
+#define HMI_IBRD_80_MHZ_9600_BAUD                                          (520)
+#define HMI_FBRD_80_MHZ_9600_BAUD                                           (53)
 
 
 
@@ -116,6 +141,7 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 #define ADC12_0_INST_INT_IRQN                                    (ADC1_INT_IRQn)
 #define ADC12_0_ADCMEM_0                                      DL_ADC12_MEM_IDX_0
 #define ADC12_0_ADCMEM_0_REF                DL_ADC12_REFERENCE_VOLTAGE_VDDA_VSSA
+#define ADC12_0_INST_SUB_CH                                                  (1)
 #define GPIO_ADC12_0_C0_PORT                                               GPIOA
 #define GPIO_ADC12_0_C0_PIN                                       DL_GPIO_PIN_15
 #define GPIO_ADC12_0_IOMUX_C0                                    (IOMUX_PINCM37)
@@ -146,7 +172,9 @@ void SYSCFG_DL_GPIO_init(void);
 void SYSCFG_DL_SYSCTL_init(void);
 
 bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
-void SYSCFG_DL_UART_0_init(void);
+void SYSCFG_DL_TIMER_0_init(void);
+void SYSCFG_DL_XDS_init(void);
+void SYSCFG_DL_HMI_init(void);
 void SYSCFG_DL_ADC12_0_init(void);
 void SYSCFG_DL_DMA_init(void);
 

@@ -1,65 +1,51 @@
 /**
  * @file    tasks.c
- * @brief   应用任务函数实现 — ADC 电压采集版
- *
- *   ADC 通过 DMA 持续采样，DMA ISR 置位 g_adc_dma_done。
- *   UART_Proc 每秒读取最新电压并通过串口上报。
+ * @brief   任务的具体实现
+            夏子杰 2026.7.5
  */
 
 #include "BSP/bsp.h"
 #include "App/app.h"
-#include "tasks.h"
 #include "App/app_config.h"
+#include "tasks.h"
 
-/* ---- 外部引用 ---- */
-extern volatile uint8_t g_adc_dma_done;
+#include <math.h>
+#include <string.h>
+
 extern uint16_t g_adc_buffer[FFT_Q15_N];
 
-/* ---- 全局波形分析结果 ---- */
 Wave_Struct g_wave_info;
 
-/* ---- 波形类型 → 字符串 ---- */
-static const char *wave_type_str(WaveType_t t)
-{
-    switch (t) {
-        case WAVE_SINE:     return "SINE";
-        case WAVE_SQUARE:   return "SQUARE";
-        case WAVE_TRIANGLE: return "TRIANGLE";
-        default:            return "UNKNOWN";
-    }
-}
+/* FFT 工作缓冲区（体积大，放静态区，不放栈） */
+static fftin_q15_t  s_fft_in;
+static fftout_q15_t s_fft_out;
+static float        s_window[FFT_Q15_N];
+static bool         s_window_inited = false;
 
-/* ================================================================
- * ADC 数据采集任务（建议 10ms 周期）
- *
- *   从 DMA 缓冲区读取 ADC 采样值，计算平均电压。
- * ================================================================ */
+
+/* ---- 10ms 周期：等待 ADC 完成 → FFT → 清 buffer → 重启动 ---- */
 void ADC_Proc(uint32_t ticks)
 {
     (void)ticks;
 
-    if (!g_adc_dma_done) return;
-    g_adc_dma_done = 0;
-
-    /* 计算 DMA 缓冲区中所有采样点的平均值 */
-    uint32_t sum = 0;
-    for (uint16_t i = 0; i < FFT_Q15_N; i++) {
-        sum += g_adc_buffer[i];
+    if (!ADC_IsCaptureDone()) {
+        return;
     }
-    uint16_t avg = (uint16_t)(sum / FFT_Q15_N);
+    ADC_ClearCaptureDone();
 
-    /* 12-bit ADC，参考电压 VDDA ≈ 3.3V */
-    g_wave_info.Vpp = avg * 3.3f / 4095.0f;
-    g_wave_info.Freq = 0.0f;
-    g_wave_info.Wave_type = WAVE_UNKNOWN;
+    /* q15 FFT：去直流 → 加窗 → CFFT → 求模 */
+
+    fft_q15_prepare(g_adc_buffer, &s_fft_in);
+    // fft_q15_window(&s_fft_in, s_window);
+    fft_q15_process(&s_fft_in, &s_fft_out);
+    
+    /* 清空 buffer，开启新一轮采集 */
+    memset(g_adc_buffer, 0, sizeof(g_adc_buffer));
+    ADC_StartNormal(g_adc_buffer, FFT_Q15_N);
 }
 
-/* ================================================================
- * 串口电压上报任务（1秒周期）
- *
- *   每秒上报一次最新电压值。
- * ================================================================ */
+/* ---- 1 秒周期：串口上报 ---- */
 void UART_Proc(void)
 {
-    Serial_Printf("ADC Voltage: %.2f V\r\n", g_wave_info.Vpp);
+    Serial_Printf("Freq: %.1f Hz  Vpp: %.2f V\r\n", g_wave_info.Freq, g_wave_info.Vpp);
 }

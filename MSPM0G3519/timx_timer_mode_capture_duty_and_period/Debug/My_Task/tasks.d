@@ -2,7 +2,7 @@
 
 My_Task/tasks.o: ../My_Task/tasks.c \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h \
- D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/delay/delay.h \
+ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app_config.h \
@@ -38,7 +38,7 @@ My_Task/tasks.o: ../My_Task/tasks.c \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer_q15.h \
  ../My_Task/tasks.h
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h:
-D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/delay/delay.h:
+D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app_config.h:

@@ -122,8 +122,8 @@ SUBDIRS := \
 App/dsp \
 App/fft \
 App/hmi \
+BSP/adc \
 BSP \
-BSP/delay \
 BSP/uart \
 My_Task \
 Scheduler \

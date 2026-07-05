@@ -19,10 +19,11 @@ ORDERED_OBJS += \
 "./App/fft/fft_analyzer.o" \
 "./App/fft/fft_analyzer_q15.o" \
 "./App/hmi/hmi.o" \
+"./BSP/adc/adc.o" \
 "./BSP/bsp.o" \
-"./BSP/delay/delay.o" \
 "./BSP/uart/uart.o" \
 "./My_Task/tasks.o" \
+"./My_Task/thd.o" \
 "./Scheduler/scheduler.o" \
 $(GEN_CMDS__FLAG) \
 -Wl,-ldevice.cmd.genlibs \
@@ -39,8 +40,8 @@ RMDIR := RMDIR /S/Q
 -include App/dsp/subdir_vars.mk
 -include App/fft/subdir_vars.mk
 -include App/hmi/subdir_vars.mk
+-include BSP/adc/subdir_vars.mk
 -include BSP/subdir_vars.mk
--include BSP/delay/subdir_vars.mk
 -include BSP/uart/subdir_vars.mk
 -include My_Task/subdir_vars.mk
 -include Scheduler/subdir_vars.mk
@@ -48,8 +49,8 @@ RMDIR := RMDIR /S/Q
 -include App/dsp/subdir_rules.mk
 -include App/fft/subdir_rules.mk
 -include App/hmi/subdir_rules.mk
+-include BSP/adc/subdir_rules.mk
 -include BSP/subdir_rules.mk
--include BSP/delay/subdir_rules.mk
 -include BSP/uart/subdir_rules.mk
 -include My_Task/subdir_rules.mk
 -include Scheduler/subdir_rules.mk
@@ -163,8 +164,8 @@ timx_timer_mode_capture_duty_and_period_LP_MSPM0G3519_nortos_ticlang.out: $(OBJS
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "timx_timer_mode_capture_duty_and_period.o" "ti_msp_dl_config.o" "startup_mspm0g351x_ticlang.o" "App\dsp\dsp_adaptive.o" "App\dsp\dsp_analyze.o" "App\dsp\dsp_filter.o" "App\fft\fft_analyzer.o" "App\fft\fft_analyzer_q15.o" "App\hmi\hmi.o" "BSP\bsp.o" "BSP\delay\delay.o" "BSP\uart\uart.o" "My_Task\tasks.o" "Scheduler\scheduler.o" 
-	-$(RM) "timx_timer_mode_capture_duty_and_period.d" "ti_msp_dl_config.d" "startup_mspm0g351x_ticlang.d" "App\dsp\dsp_adaptive.d" "App\dsp\dsp_analyze.d" "App\dsp\dsp_filter.d" "App\fft\fft_analyzer.d" "App\fft\fft_analyzer_q15.d" "App\hmi\hmi.d" "BSP\bsp.d" "BSP\delay\delay.d" "BSP\uart\uart.d" "My_Task\tasks.d" "Scheduler\scheduler.d" 
+	-$(RM) "timx_timer_mode_capture_duty_and_period.o" "ti_msp_dl_config.o" "startup_mspm0g351x_ticlang.o" "App\dsp\dsp_adaptive.o" "App\dsp\dsp_analyze.o" "App\dsp\dsp_filter.o" "App\fft\fft_analyzer.o" "App\fft\fft_analyzer_q15.o" "App\hmi\hmi.o" "BSP\adc\adc.o" "BSP\bsp.o" "BSP\uart\uart.o" "My_Task\tasks.o" "My_Task\thd.o" "Scheduler\scheduler.o" 
+	-$(RM) "timx_timer_mode_capture_duty_and_period.d" "ti_msp_dl_config.d" "startup_mspm0g351x_ticlang.d" "App\dsp\dsp_adaptive.d" "App\dsp\dsp_analyze.d" "App\dsp\dsp_filter.d" "App\fft\fft_analyzer.d" "App\fft\fft_analyzer_q15.d" "App\hmi\hmi.d" "BSP\adc\adc.d" "BSP\bsp.d" "BSP\uart\uart.d" "My_Task\tasks.d" "My_Task\thd.d" "Scheduler\scheduler.d" 
 	-@echo ' '
 
 .PHONY: all clean dependents

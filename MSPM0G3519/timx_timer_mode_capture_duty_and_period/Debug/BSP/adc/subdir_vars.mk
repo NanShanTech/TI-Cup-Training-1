@@ -6,27 +6,21 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../My_Task/tasks.c \
-../My_Task/thd.c 
+../BSP/adc/adc.c 
 
 C_DEPS += \
-./My_Task/tasks.d \
-./My_Task/thd.d 
+./BSP/adc/adc.d 
 
 OBJS += \
-./My_Task/tasks.o \
-./My_Task/thd.o 
+./BSP/adc/adc.o 
 
 OBJS__QUOTED += \
-"My_Task\tasks.o" \
-"My_Task\thd.o" 
+"BSP\adc\adc.o" 
 
 C_DEPS__QUOTED += \
-"My_Task\tasks.d" \
-"My_Task\thd.d" 
+"BSP\adc\adc.d" 
 
 C_SRCS__QUOTED += \
-"../My_Task/tasks.c" \
-"../My_Task/thd.c" 
+"../BSP/adc/adc.c" 
 
 

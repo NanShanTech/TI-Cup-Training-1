@@ -86,13 +86,12 @@ timx_timer_mode_capture_duty_and_period.o: \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_wwdt.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_interrupt.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_systick.h \
- ../BSP/bsp.h \
- D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/delay/delay.h \
- D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h \
  ../App/app.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app_config.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app_types.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h \
+ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h \
+ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/Scheduler/scheduler.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/dsp/dsp_filter.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/DSP/Include/arm_math.h \
@@ -121,7 +120,7 @@ timx_timer_mode_capture_duty_and_period.o: \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/dsp/dsp_adaptive.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer_q15.h \
- ../My_Task/tasks.h
+ ../BSP/bsp.h ../My_Task/tasks.h
 ti_msp_dl_config.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/devices/msp/msp.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/devices/DeviceFamily.h:
@@ -206,13 +205,12 @@ D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_vref.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_wwdt.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_interrupt.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_systick.h:
-../BSP/bsp.h:
-D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/delay/delay.h:
-D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h:
 ../App/app.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app_config.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/app_types.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h:
+D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h:
+D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/Scheduler/scheduler.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/dsp/dsp_filter.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/DSP/Include/arm_math.h:
@@ -241,4 +239,5 @@ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/A
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/dsp/dsp_adaptive.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer_q15.h:
+../BSP/bsp.h:
 ../My_Task/tasks.h:

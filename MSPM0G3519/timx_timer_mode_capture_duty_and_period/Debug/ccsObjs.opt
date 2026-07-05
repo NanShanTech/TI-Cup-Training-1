@@ -7,10 +7,11 @@
 "./App/fft/fft_analyzer.o"
 "./App/fft/fft_analyzer_q15.o"
 "./App/hmi/hmi.o"
+"./BSP/adc/adc.o"
 "./BSP/bsp.o"
-"./BSP/delay/delay.o"
 "./BSP/uart/uart.o"
 "./My_Task/tasks.o"
+"./My_Task/thd.o"
 "./Scheduler/scheduler.o"
 -l"./device_linker.cmd"
 -ldevice.cmd.genlibs
