@@ -36,7 +36,7 @@ My_Task/tasks.o: ../My_Task/tasks.c \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/dsp/dsp_adaptive.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer.h \
  D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer_q15.h \
- ../My_Task/tasks.h
+ ../My_Task/thd.h ../My_Task/tasks.h ../My_Task/Hanning_Window_2048.h
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h:
@@ -72,4 +72,6 @@ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/A
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/dsp/dsp_adaptive.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/App/fft/fft_analyzer_q15.h:
+../My_Task/thd.h:
 ../My_Task/tasks.h:
+../My_Task/Hanning_Window_2048.h:

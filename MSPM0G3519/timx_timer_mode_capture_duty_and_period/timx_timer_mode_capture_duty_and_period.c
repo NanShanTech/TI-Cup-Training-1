@@ -4,25 +4,25 @@
 #include "BSP/bsp.h"
 #include "My_Task/tasks.h"
 
-uint16_t g_adc_buffer[FFT_Q15_N];  /* ADC DMA 采样缓冲区 */
+uint16_t g_adc_buffer[FFT_N];  /* ADC DMA 采样缓冲区 — 2048 点 */
 
 int main(void)
 {
     /* ---- 板级 + 串口初始化 ---- */
     BSP_Init();
     Serial_Init();
-    HMI_Serial_Init();
+    Serial_RxInit();          /* 开启 RX 空闲中断 */
 
     /* ---- ADC 采样链路：定时器触发 → DMA 搬运 → 中断通知 ---- */
     SampleTimer_Init();
     SampleTimer_SetRate(BSP_ADC_DEFAULT_SAMPLE_RATE);
     ADC_Init();
-    ADC_StartNormal(g_adc_buffer, FFT_Q15_N);
+    ADC_StartNormal(g_adc_buffer, FFT_N);
 
     /* ---- 时间触发调度器 ---- */
     Scheduler_Init();
-    Scheduler_RegTask_10ms(ADC_Proc);    /* 每 10ms 处理一次 ADC 数据 */
-    Scheduler_RegTask_1sec(UART_Proc);   /* 每秒上报一次结果           */
+    Scheduler_RegTask_10ms(ADC_Proc);
+    Scheduler_RegTask_1sec(UART_Proc);
 
     while (1) {
         Scheduler_Run();
@@ -39,4 +39,17 @@ void SysTick_Handler(void)
 void ADC12_0_INST_IRQHandler(void)
 {
     ADC_IRQHandler();
+}
+
+/* ---- UART 空闲中断---- */
+void HMI_INST_IRQHandler(void)
+{
+    if (DL_UART_Extend_getPendingInterrupt(HMI_INST)
+        == DL_UART_IIDX_RX_TIMEOUT_ERROR) {
+        uint8_t byte;
+        while (Serial_RxFifoReadByte(&byte)) {
+            Serial_RxPushByte(byte);
+        }
+    }
+    Serial_RxClearFlags();
 }

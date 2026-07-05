@@ -14,6 +14,8 @@ static const arm_cfft_instance_f32 *fft_get_instance(uint16_t fft_n) {
         case 256:  return &arm_cfft_sR_f32_len256;
         case 512:  return &arm_cfft_sR_f32_len512;
         case 1024: return &arm_cfft_sR_f32_len1024;
+        case 2048: return &arm_cfft_sR_f32_len2048;
+        case 4096: return &arm_cfft_sR_f32_len4096;
         default:   return &arm_cfft_sR_f32_len256;
     }
 }

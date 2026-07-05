@@ -13,7 +13,7 @@
 void HMI_Init(HMI_Comm *self, uint8_t port)
 {
     self->port = port;
-    HMI_Serial_Init();
+    Serial_Init();
 }
 
 static void HMI_Printf(HMI_Comm *self, const char *fmt, ...)
@@ -37,7 +37,7 @@ static void HMI_Printf(HMI_Comm *self, const char *fmt, ...)
         len += 3;
     }
 
-    HMI_Serial_Send((const uint8_t *)buf, (uint16_t)len);
+    Serial_Send((const uint8_t *)buf, (uint16_t)len);
 }
 
 void HMI_SendStr(HMI_Comm *self, const char *ctl, const char *text)

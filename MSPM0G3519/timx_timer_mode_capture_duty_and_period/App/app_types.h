@@ -22,10 +22,12 @@ typedef enum {
     WAVE_UNKNOWN        /* 未知   */
 } WaveType_t;
 
-/** 波形测量结果（频率 + 峰峰值 + 波形类型） */
+/** 波形测量结果（频率 + 峰峰值 + THD + 各次谐波/基波比 + 波形类型） */
 typedef struct {
-    float       Freq;       /* 频率 (Hz)  */
-    float       Vpp;        /* 峰峰值 (V) */
+    float       Freq;            /* 频率 (Hz)                */
+    float       Vpp;             /* 峰峰值 (V)               */
+    float       THD;             /* 总谐波失真度 (%)          */
+    float       HarmRatio[6];    /* [1]~[5] Vh/V1×100%，[1]=100 */
     WaveType_t  Wave_type;
 } Wave_Struct;
 

@@ -41,7 +41,6 @@
 #include "ti_msp_dl_config.h"
 
 DL_TimerA_backupConfig gTIMER_0Backup;
-DL_UART_Main_backupConfig gHMIBackup;
 
 /*
  *  ======== SYSCFG_DL_init ========
@@ -54,14 +53,13 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     /* Module-Specific Initializations*/
     SYSCFG_DL_SYSCTL_init();
     SYSCFG_DL_TIMER_0_init();
-    SYSCFG_DL_XDS_init();
     SYSCFG_DL_HMI_init();
     SYSCFG_DL_ADC12_0_init();
     SYSCFG_DL_DMA_init();
     SYSCFG_DL_SYSTICK_init();
     /* Ensure backup structures have no valid state */
 	gTIMER_0Backup.backupRdy 	= false;
-	gHMIBackup.backupRdy 	= false;
+
 
 }
 /*
@@ -73,7 +71,6 @@ SYSCONFIG_WEAK bool SYSCFG_DL_saveConfiguration(void)
     bool retStatus = true;
 
 	retStatus &= DL_TimerA_saveConfiguration(TIMER_0_INST, &gTIMER_0Backup);
-	retStatus &= DL_UART_Main_saveConfiguration(HMI_INST, &gHMIBackup);
 
     return retStatus;
 }
@@ -84,7 +81,6 @@ SYSCONFIG_WEAK bool SYSCFG_DL_restoreConfiguration(void)
     bool retStatus = true;
 
 	retStatus &= DL_TimerA_restoreConfiguration(TIMER_0_INST, &gTIMER_0Backup, false);
-	retStatus &= DL_UART_Main_restoreConfiguration(HMI_INST, &gHMIBackup);
 
     return retStatus;
 }
@@ -95,8 +91,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_GPIO_reset(GPIOB);
     DL_GPIO_reset(GPIOC);
     DL_TimerA_reset(TIMER_0_INST);
-    DL_UART_Main_reset(XDS_INST);
-    DL_UART_Main_reset(HMI_INST);
+    DL_UART_Extend_reset(HMI_INST);
     DL_ADC12_reset(ADC12_0_INST);
 
 
@@ -105,8 +100,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_GPIO_enablePower(GPIOB);
     DL_GPIO_enablePower(GPIOC);
     DL_TimerA_enablePower(TIMER_0_INST);
-    DL_UART_Main_enablePower(XDS_INST);
-    DL_UART_Main_enablePower(HMI_INST);
+    DL_UART_Extend_enablePower(HMI_INST);
     DL_ADC12_enablePower(ADC12_0_INST);
 
 
@@ -120,16 +114,12 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initPeripheralAnalogFunction(GPIO_HFXOUT_IOMUX);
 
     DL_GPIO_initPeripheralOutputFunction(
-        GPIO_XDS_IOMUX_TX, GPIO_XDS_IOMUX_TX_FUNC);
+        GPIO_HMI_IOMUX_TX, GPIO_HMI_IOMUX_TX_FUNC);
     
 	DL_GPIO_initPeripheralInputFunctionFeatures(
-		 GPIO_XDS_IOMUX_RX, GPIO_XDS_IOMUX_RX_FUNC,
+		 GPIO_HMI_IOMUX_RX, GPIO_HMI_IOMUX_RX_FUNC,
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
-    DL_GPIO_initPeripheralOutputFunction(
-        GPIO_HMI_IOMUX_TX, GPIO_HMI_IOMUX_TX_FUNC);
-    DL_GPIO_initPeripheralInputFunction(
-        GPIO_HMI_IOMUX_RX, GPIO_HMI_IOMUX_RX_FUNC);
 
     DL_GPIO_initDigitalOutput(LED_PIN_0_IOMUX);
 
@@ -291,73 +281,46 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_0_init(void) {
 }
 
 
-static const DL_UART_Main_ClockConfig gXDSClockConfig = {
-    .clockSel    = DL_UART_MAIN_CLOCK_BUSCLK,
-    .divideRatio = DL_UART_MAIN_CLOCK_DIVIDE_RATIO_1
+static const DL_UART_Extend_ClockConfig gHMIClockConfig = {
+    .clockSel    = DL_UART_EXTEND_CLOCK_BUSCLK,
+    .divideRatio = DL_UART_EXTEND_CLOCK_DIVIDE_RATIO_1
 };
 
-static const DL_UART_Main_Config gXDSConfig = {
-    .mode        = DL_UART_MAIN_MODE_NORMAL,
-    .direction   = DL_UART_MAIN_DIRECTION_TX_RX,
-    .flowControl = DL_UART_MAIN_FLOW_CONTROL_NONE,
-    .parity      = DL_UART_MAIN_PARITY_NONE,
-    .wordLength  = DL_UART_MAIN_WORD_LENGTH_8_BITS,
-    .stopBits    = DL_UART_MAIN_STOP_BITS_ONE
-};
-
-SYSCONFIG_WEAK void SYSCFG_DL_XDS_init(void)
-{
-    DL_UART_Main_setClockConfig(XDS_INST, (DL_UART_Main_ClockConfig *) &gXDSClockConfig);
-
-    DL_UART_Main_init(XDS_INST, (DL_UART_Main_Config *) &gXDSConfig);
-    /*
-     * Configure baud rate by setting oversampling and baud rate divisors.
-     *  Target baud rate: 115200
-     *  Actual baud rate: 115190.78
-     */
-    DL_UART_Main_setOversampling(XDS_INST, DL_UART_OVERSAMPLING_RATE_16X);
-    DL_UART_Main_setBaudRateDivisor(XDS_INST, XDS_IBRD_40_MHZ_115200_BAUD, XDS_FBRD_40_MHZ_115200_BAUD);
-
-
-    /* Configure FIFOs */
-    DL_UART_Main_enableFIFOs(XDS_INST);
-    DL_UART_Main_setRXFIFOThreshold(XDS_INST, DL_UART_RX_FIFO_LEVEL_ONE_ENTRY);
-    DL_UART_Main_setTXFIFOThreshold(XDS_INST, DL_UART_TX_FIFO_LEVEL_1_2_EMPTY);
-
-    DL_UART_Main_enableLoopbackMode(XDS_INST);
-
-    DL_UART_Main_enable(XDS_INST);
-}
-static const DL_UART_Main_ClockConfig gHMIClockConfig = {
-    .clockSel    = DL_UART_MAIN_CLOCK_BUSCLK,
-    .divideRatio = DL_UART_MAIN_CLOCK_DIVIDE_RATIO_1
-};
-
-static const DL_UART_Main_Config gHMIConfig = {
-    .mode        = DL_UART_MAIN_MODE_NORMAL,
-    .direction   = DL_UART_MAIN_DIRECTION_TX_RX,
-    .flowControl = DL_UART_MAIN_FLOW_CONTROL_NONE,
-    .parity      = DL_UART_MAIN_PARITY_NONE,
-    .wordLength  = DL_UART_MAIN_WORD_LENGTH_8_BITS,
-    .stopBits    = DL_UART_MAIN_STOP_BITS_ONE
+static const DL_UART_Extend_Config gHMIConfig = {
+    .mode        = DL_UART_EXTEND_MODE_NORMAL,
+    .direction   = DL_UART_EXTEND_DIRECTION_TX_RX,
+    .flowControl = DL_UART_EXTEND_FLOW_CONTROL_NONE,
+    .parity      = DL_UART_EXTEND_PARITY_NONE,
+    .wordLength  = DL_UART_EXTEND_WORD_LENGTH_8_BITS,
+    .stopBits    = DL_UART_EXTEND_STOP_BITS_ONE
 };
 
 SYSCONFIG_WEAK void SYSCFG_DL_HMI_init(void)
 {
-    DL_UART_Main_setClockConfig(HMI_INST, (DL_UART_Main_ClockConfig *) &gHMIClockConfig);
+    DL_UART_Extend_setClockConfig(HMI_INST, (DL_UART_Extend_ClockConfig *) &gHMIClockConfig);
 
-    DL_UART_Main_init(HMI_INST, (DL_UART_Main_Config *) &gHMIConfig);
+    DL_UART_Extend_init(HMI_INST, (DL_UART_Extend_Config *) &gHMIConfig);
     /*
      * Configure baud rate by setting oversampling and baud rate divisors.
      *  Target baud rate: 9600
-     *  Actual baud rate: 9600.1
+     *  Actual baud rate: 9599.81
      */
-    DL_UART_Main_setOversampling(HMI_INST, DL_UART_OVERSAMPLING_RATE_16X);
-    DL_UART_Main_setBaudRateDivisor(HMI_INST, HMI_IBRD_80_MHZ_9600_BAUD, HMI_FBRD_80_MHZ_9600_BAUD);
+    DL_UART_Extend_setOversampling(HMI_INST, DL_UART_OVERSAMPLING_RATE_16X);
+    DL_UART_Extend_setBaudRateDivisor(HMI_INST, HMI_IBRD_40_MHZ_9600_BAUD, HMI_FBRD_40_MHZ_9600_BAUD);
 
 
+    /* Configure Interrupts */
+    DL_UART_Extend_enableInterrupt(HMI_INST,
+                                 DL_UART_EXTEND_INTERRUPT_RX_TIMEOUT_ERROR);
 
-    DL_UART_Main_enable(HMI_INST);
+    /* Configure FIFOs */
+    DL_UART_Extend_enableFIFOs(HMI_INST);
+    DL_UART_Extend_setRXFIFOThreshold(HMI_INST, DL_UART_RX_FIFO_LEVEL_ONE_ENTRY);
+    DL_UART_Extend_setTXFIFOThreshold(HMI_INST, DL_UART_TX_FIFO_LEVEL_1_2_EMPTY);
+
+    DL_UART_Extend_enableLoopbackMode(HMI_INST);
+
+    DL_UART_Extend_enable(HMI_INST);
 }
 
 /* ADC12_0 Initialization */
@@ -370,7 +333,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_ADC12_0_init(void)
 {
     DL_ADC12_setClockConfig(ADC12_0_INST, (DL_ADC12_ClockConfig *) &gADC12_0ClockConfig);
     DL_ADC12_initSingleSample(ADC12_0_INST,
-        DL_ADC12_REPEAT_MODE_DISABLED, DL_ADC12_SAMPLING_SOURCE_AUTO, DL_ADC12_TRIG_SRC_EVENT,
+        DL_ADC12_REPEAT_MODE_ENABLED, DL_ADC12_SAMPLING_SOURCE_AUTO, DL_ADC12_TRIG_SRC_EVENT,
         DL_ADC12_SAMP_CONV_RES_12_BIT, DL_ADC12_SAMP_CONV_DATA_FORMAT_UNSIGNED);
     DL_ADC12_configConversionMem(ADC12_0_INST, ADC12_0_ADCMEM_0,
         DL_ADC12_INPUT_CHAN_0, DL_ADC12_REFERENCE_VOLTAGE_VDDA_VSSA, DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP0, DL_ADC12_AVERAGING_MODE_DISABLED,
@@ -388,7 +351,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_ADC12_0_init(void)
 }
 
 static const DL_DMA_Config gDMA_CH2Config = {
-    .transferMode   = DL_DMA_FULL_CH_REPEAT_SINGLE_TRANSFER_MODE,
+    .transferMode   = DL_DMA_SINGLE_TRANSFER_MODE,
     .extendedMode   = DL_DMA_NORMAL_MODE,
     .destIncrement  = DL_DMA_ADDR_INCREMENT,
     .srcIncrement   = DL_DMA_ADDR_UNCHANGED,
@@ -400,7 +363,7 @@ static const DL_DMA_Config gDMA_CH2Config = {
 
 SYSCONFIG_WEAK void SYSCFG_DL_DMA_CH2_init(void)
 {
-    DL_DMA_setTransferSize(DMA, DMA_CH2_CHAN_ID, 4096);
+    DL_DMA_setTransferSize(DMA, DMA_CH2_CHAN_ID, 2048);
     DL_DMA_initChannel(DMA, DMA_CH2_CHAN_ID , (DL_DMA_Config *) &gDMA_CH2Config);
 }
 SYSCONFIG_WEAK void SYSCFG_DL_DMA_init(void){

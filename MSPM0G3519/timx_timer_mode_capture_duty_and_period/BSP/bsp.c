@@ -4,7 +4,7 @@
 #include <ti/driverlib/m0p/dl_core.h>
 
 #define BSP_RESET_VECTKEY          (0x5FAUL << 16U)
-#define SAMPLE_TIMER_CLOCK_HZ      (16000000UL)  /* MCLK=32MHz, BUSCLK/2=16MHz */
+#define SAMPLE_TIMER_CLOCK_HZ      (40000000UL)  /* BUSCLK=80MHz, /2=40MHz */
 
 static uint32_t s_sample_timer_rate_hz = BSP_ADC_DEFAULT_SAMPLE_RATE;
 

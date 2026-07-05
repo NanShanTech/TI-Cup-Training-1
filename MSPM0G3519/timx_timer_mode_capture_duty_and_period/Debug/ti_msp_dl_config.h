@@ -98,38 +98,22 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 
 
 
-/* Defines for XDS */
-#define XDS_INST                                                           UART0
-#define XDS_INST_FREQUENCY                                              40000000
-#define XDS_INST_IRQHandler                                     UART0_IRQHandler
-#define XDS_INST_INT_IRQN                                         UART0_INT_IRQn
-#define GPIO_XDS_RX_PORT                                                   GPIOA
-#define GPIO_XDS_TX_PORT                                                   GPIOA
-#define GPIO_XDS_RX_PIN                                           DL_GPIO_PIN_11
-#define GPIO_XDS_TX_PIN                                           DL_GPIO_PIN_10
-#define GPIO_XDS_IOMUX_RX                                        (IOMUX_PINCM22)
-#define GPIO_XDS_IOMUX_TX                                        (IOMUX_PINCM21)
-#define GPIO_XDS_IOMUX_RX_FUNC                         IOMUX_PINCM22_PF_UART0_RX
-#define GPIO_XDS_IOMUX_TX_FUNC                         IOMUX_PINCM21_PF_UART0_TX
-#define XDS_BAUD_RATE                                                   (115200)
-#define XDS_IBRD_40_MHZ_115200_BAUD                                         (21)
-#define XDS_FBRD_40_MHZ_115200_BAUD                                         (45)
 /* Defines for HMI */
-#define HMI_INST                                                           UART3
-#define HMI_INST_FREQUENCY                                              80000000
-#define HMI_INST_IRQHandler                                     UART3_IRQHandler
-#define HMI_INST_INT_IRQN                                         UART3_INT_IRQn
-#define GPIO_HMI_RX_PORT                                                   GPIOC
-#define GPIO_HMI_TX_PORT                                                   GPIOC
-#define GPIO_HMI_RX_PIN                                            DL_GPIO_PIN_7
-#define GPIO_HMI_TX_PIN                                            DL_GPIO_PIN_6
-#define GPIO_HMI_IOMUX_RX                                        (IOMUX_PINCM85)
-#define GPIO_HMI_IOMUX_TX                                        (IOMUX_PINCM84)
-#define GPIO_HMI_IOMUX_RX_FUNC                         IOMUX_PINCM85_PF_UART3_RX
-#define GPIO_HMI_IOMUX_TX_FUNC                         IOMUX_PINCM84_PF_UART3_TX
+#define HMI_INST                                                           UART0
+#define HMI_INST_FREQUENCY                                              40000000
+#define HMI_INST_IRQHandler                                     UART0_IRQHandler
+#define HMI_INST_INT_IRQN                                         UART0_INT_IRQn
+#define GPIO_HMI_RX_PORT                                                   GPIOA
+#define GPIO_HMI_TX_PORT                                                   GPIOA
+#define GPIO_HMI_RX_PIN                                           DL_GPIO_PIN_11
+#define GPIO_HMI_TX_PIN                                           DL_GPIO_PIN_10
+#define GPIO_HMI_IOMUX_RX                                        (IOMUX_PINCM22)
+#define GPIO_HMI_IOMUX_TX                                        (IOMUX_PINCM21)
+#define GPIO_HMI_IOMUX_RX_FUNC                         IOMUX_PINCM22_PF_UART0_RX
+#define GPIO_HMI_IOMUX_TX_FUNC                         IOMUX_PINCM21_PF_UART0_TX
 #define HMI_BAUD_RATE                                                     (9600)
-#define HMI_IBRD_80_MHZ_9600_BAUD                                          (520)
-#define HMI_FBRD_80_MHZ_9600_BAUD                                           (53)
+#define HMI_IBRD_40_MHZ_9600_BAUD                                          (260)
+#define HMI_FBRD_40_MHZ_9600_BAUD                                           (27)
 
 
 
@@ -173,7 +157,6 @@ void SYSCFG_DL_SYSCTL_init(void);
 
 bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 void SYSCFG_DL_TIMER_0_init(void);
-void SYSCFG_DL_XDS_init(void);
 void SYSCFG_DL_HMI_init(void);
 void SYSCFG_DL_ADC12_0_init(void);
 void SYSCFG_DL_DMA_init(void);
