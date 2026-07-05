@@ -25,7 +25,7 @@ int main(void)
     Scheduler_RegTask_1sec(UART_Proc);
 
     while (1) {
-        Scheduler_Run();
+         Scheduler_Run();
     }
 }
 
@@ -45,7 +45,7 @@ void ADC12_0_INST_IRQHandler(void)
 void HMI_INST_IRQHandler(void)
 {
     if (DL_UART_Extend_getPendingInterrupt(HMI_INST)
-        == DL_UART_IIDX_RX_TIMEOUT_ERROR) {
+        == DL_UART_EXTEND_IIDX_RX_TIMEOUT_ERROR) {
         uint8_t byte;
         while (Serial_RxFifoReadByte(&byte)) {
             Serial_RxPushByte(byte);

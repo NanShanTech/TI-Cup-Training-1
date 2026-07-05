@@ -315,10 +315,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_HMI_init(void)
 
     /* Configure FIFOs */
     DL_UART_Extend_enableFIFOs(HMI_INST);
-    DL_UART_Extend_setRXFIFOThreshold(HMI_INST, DL_UART_RX_FIFO_LEVEL_ONE_ENTRY);
+    DL_UART_Extend_setRXFIFOThreshold(HMI_INST, DL_UART_RX_FIFO_LEVEL_1_2_FULL);
     DL_UART_Extend_setTXFIFOThreshold(HMI_INST, DL_UART_TX_FIFO_LEVEL_1_2_EMPTY);
-
-    DL_UART_Extend_enableLoopbackMode(HMI_INST);
 
     DL_UART_Extend_enable(HMI_INST);
 }

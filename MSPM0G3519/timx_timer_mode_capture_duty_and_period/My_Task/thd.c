@@ -1,6 +1,6 @@
 /**
  * @file    thd.c
- * @brief   THD 总谐波失真 — 三 bin 能量求和，抗频谱泄漏
+ * @brief   THD 总谐波失真 — 九 bin 能量求和，抗频谱泄漏
  *         夏子杰 2026.7.5
  */
 
@@ -8,13 +8,13 @@
 #include "App/app_config.h"
 #include <math.h>
 
-/* 在谐波频率附近 (±2 bin) 找幅度峰，返回峰值索引 */
+/* 在谐波频率附近 (±4 bin) 找幅度峰，返回峰值索引 */
 static uint16_t thd_find_peak_idx(const float *mag, uint32_t target)
 {
     uint16_t peak_idx = (uint16_t)target;
     float    peak_val = mag[target];
 
-    for (int off = -2; off <= 2; off++) {
+    for (int off = -4; off <= 4; off++) {
         int idx = (int)target + off;
         if (idx > 0 && idx < FFT_N_2 - 1 && mag[idx] > peak_val) {
             peak_val = mag[idx];
@@ -38,9 +38,9 @@ float THD_HarmonicEnergy(const float *mag, uint16_t base_idx,
 
     uint16_t peak = thd_find_peak_idx(mag, target);
 
-    /* 峰值左右各取 2 个 bin，五 bin 能量开方 */
+    /* 峰值左右各取 4 个 bin，九 bin 能量开方 */
     float sum_sq = 0.0f;
-    for (int off = -2; off <= 2; off++) {
+    for (int off = -4; off <= 4; off++) {
         int idx = (int)peak + off;
         if (idx > 0 && idx < FFT_N_2) {
             sum_sq += mag[idx] * mag[idx];

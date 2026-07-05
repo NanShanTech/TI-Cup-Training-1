@@ -73,17 +73,12 @@ void Serial_Init(void)
 {
     if (s_uart_inited) return;
 
-    DL_UART_Extend_enablePower(HMI_INST);
-    DL_GPIO_initPeripheralOutputFunction(
-        GPIO_HMI_IOMUX_TX, GPIO_HMI_IOMUX_TX_FUNC);
-    DL_GPIO_initPeripheralInputFunction(
-        GPIO_HMI_IOMUX_RX, GPIO_HMI_IOMUX_RX_FUNC);
-    DL_UART_Extend_configBaudRate(HMI_INST, HMI_INST_FREQUENCY, HMI_BAUD_RATE);
-
+    /* 硬件初始化由 SYSCFG_DL_HMI_init() 完成。
+     * RX 超时周期必须设为非零，否则 RX_TIMEOUT 中断不工作 */
+    DL_UART_Extend_setRXInterruptTimeout(HMI_INST, 10);
     DL_UART_Extend_enableInterrupt(HMI_INST,
-        DL_UART_INTERRUPT_RX_TIMEOUT_ERROR);
+        DL_UART_EXTEND_INTERRUPT_RX_TIMEOUT_ERROR);
 
-    DL_UART_Extend_enable(HMI_INST);
     s_uart_inited = true;
 }
 

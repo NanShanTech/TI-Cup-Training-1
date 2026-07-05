@@ -10,6 +10,7 @@
 "./BSP/adc/adc.o"
 "./BSP/bsp.o"
 "./BSP/uart/uart.o"
+"./My_Task/protocol.o"
 "./My_Task/tasks.o"
 "./My_Task/thd.o"
 "./Scheduler/scheduler.o"
