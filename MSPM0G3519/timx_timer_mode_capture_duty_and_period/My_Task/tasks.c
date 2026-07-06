@@ -64,7 +64,52 @@ void UART_Proc(void)
 { 
     Serial_Printf("t1.txt=\"%.2f%%\"\xff\xff\xff", (double)g_wave_info.THD);
     Serial_Printf("t3.txt=\"%s\"\xff\xff\xff", Protocol_DistName(g_mode));
-    
+
+    if (g_mode == MODE_SPECTRUM) {
+        Serial_Printf("t5.txt=\"%.1f%%\"\xff\xff\xff",
+                      (double)g_wave_info.HarmRatio[2]);
+        Serial_Printf("t8.txt=\"%.1f%%\"\xff\xff\xff",
+                      (double)g_wave_info.HarmRatio[3]);
+        Serial_Printf("t10.txt=\"%.1f%%\"\xff\xff\xff",
+                      (double)g_wave_info.HarmRatio[4]);
+        Serial_Printf("t12.txt=\"%.1f%%\"\xff\xff\xff",
+                      (double)g_wave_info.HarmRatio[5]);
+
+        /* 频谱柱状图 — 左基波 → 右五次谐波，基波高度 3/4 屏 */
+        {
+            uint8_t data[300];
+            int bar_w = 2, gap = 67, margin = 10;
+            int pos = 0;
+
+            /* 左边缘留白 */
+            for (int i = 0; i < margin && pos < 300; i++) {
+                data[pos++] = 0;
+            }
+            /* 屏幕先发的在右边 → 逆序填充: H5→H4→H3→H2→H1 */
+            for (int h = 5; h >= 1; h--) {
+                int height = (int)(g_wave_info.HarmRatio[h] / 100.0f * 150.0f);
+                if (height > 200) height = 200;
+                for (int i = 0; i < bar_w && pos < 300; i++) {
+                    data[pos++] = (uint8_t)height;
+                }
+                if (h > 1) {
+                    for (int i = 0; i < gap && pos < 300; i++) {
+                        data[pos++] = 0;
+                    }
+                }
+            }
+            /* 右边缘留白 */
+            while (pos < 300) {
+                data[pos++] = 0;
+            }
+
+            Serial_Printf("addt s0.id,0,300\xff\xff\xff");
+            for (int i = 0; i < 300; i++) {
+                Serial_Send(&data[i], 1);
+            }
+        }
+    }
+
     /* 接收 — 从环形缓冲区解析协议命令 */
     uint8_t buf[64];
     uint16_t len = Serial_RxReadAll(buf, sizeof(buf));
