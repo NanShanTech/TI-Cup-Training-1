@@ -1,14 +1,15 @@
 /**
  * @file    protocol.c
- * @brief   串口协�??解析 �?? 双字节命�?? + Serial_Printf 上报
- *         夏子�?? 2026.7.5
+ * @brief   串口协�??解析 �? 双字节命�? + Serial_Printf 上报
+ *          夏子�? 2026.7.5
  */
 
 #include "protocol.h"
 #include "BSP/bsp.h"
 #include "tasks.h"
+#include "ti_msp_dl_config.h"
 
-/* ---- 全局状�? ---- */
+/* ---- 全局状�? ---- */
 volatile MeasureMode_t g_mode      = MODE_NONE;
 static  MeasureMode_t  s_last_dist = MODE_NONE;
 
@@ -38,7 +39,7 @@ const char *Protocol_DistName(MeasureMode_t mode)
     }
 }
 
-/* ---- 解析一�??字节 ---- */
+/* ---- 解析一�?字节 ---- */
 void Protocol_ParseByte(uint8_t byte)
 {
     if (byte < 0x11 || byte > 0x77) {
@@ -62,15 +63,18 @@ void Protocol_ParseByte(uint8_t byte)
                     case MODE_CROSSOVER:
                         s_last_dist = (MeasureMode_t)byte;
                         g_mode      = (MeasureMode_t)byte;
+                        Relay_Update(g_mode);
                         break;
 
                     case MODE_SPECTRUM:
                         g_mode = MODE_SPECTRUM;
+                        /* 频谱图模式不更新继电�?，保持失真模式电平状�? */
                         break;
 
                     case MODE_REPEAT_LAST:
                         if (s_last_dist != MODE_NONE) {
                             g_mode = s_last_dist;
+                            Relay_Update(g_mode);
                         }
                         break;
 
@@ -83,7 +87,38 @@ void Protocol_ParseByte(uint8_t byte)
     }
 }
 
-/* ---- 执�?�当前模�?? ---- */
+/* ---- 继电器控�? ---- */
+void Relay_Update(MeasureMode_t mode)
+{
+    /* 全部拉低 */
+    DL_GPIO_clearPins(GPIOC, PIN1_PIN_1_PIN | PIN2_PIN_2_PIN |
+                             PIN3_PIN_3_PIN | PIN4_PIN_4_PIN |
+                             PIN5_PIN_5_PIN);
+
+    /* 对应模式引脚输出高电�? */
+    switch (mode) {
+        case MODE_NO_DISTORTION:
+            DL_GPIO_setPins(PIN1_PORT, PIN1_PIN_1_PIN);
+            break;
+        case MODE_BOTTOM_CLIP:
+            DL_GPIO_setPins(PIN2_PORT, PIN2_PIN_2_PIN);
+            break;
+        case MODE_BOTH_CLIP:
+            DL_GPIO_setPins(PIN3_PORT, PIN3_PIN_3_PIN);
+            break;
+        case MODE_TOP_CLIP:
+            DL_GPIO_setPins(PIN4_PORT, PIN4_PIN_4_PIN);
+            break;
+        case MODE_CROSSOVER:
+            DL_GPIO_setPins(PIN5_PORT, PIN5_PIN_5_PIN);
+            break;
+        default:
+            /* MODE_NONE / MODE_SPECTRUM: 全部低电�? */
+            break;
+    }
+}
+
+/* ---- 执�?�当前模�? ---- */
 void Protocol_Execute(void)
 {
     extern Wave_Struct g_wave_info;
@@ -94,14 +129,4 @@ void Protocol_Execute(void)
 
     Serial_Printf("t1.txt=\"%.2f%%\"\xff\xff\xff", (double)g_wave_info.THD);
     Serial_Printf("t3.txt=\"%s\"\xff\xff\xff", Protocol_DistName(g_mode));
-
-    /* 引脚控制 �?? 后续实现 */
-    switch (g_mode) {
-        case MODE_NO_DISTORTION: /* TODO */ break;
-        case MODE_BOTTOM_CLIP:   /* TODO */ break;
-        case MODE_BOTH_CLIP:     /* TODO */ break;
-        case MODE_TOP_CLIP:      /* TODO */ break;
-        case MODE_CROSSOVER:     /* TODO */ break;
-        default: break;
-    }
 }

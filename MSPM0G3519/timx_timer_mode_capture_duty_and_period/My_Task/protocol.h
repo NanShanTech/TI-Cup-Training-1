@@ -40,6 +40,12 @@ const char *Protocol_DistName(MeasureMode_t mode);
 void Protocol_ParseByte(uint8_t byte);
 
 /**
+ * @brief  更新继电器输出（根据模式设置对应引脚）
+ * @param  mode  当前测量模式
+ */
+void Relay_Update(MeasureMode_t mode);
+
+/**
  * @brief  执行当前模式对应动作（在任务中周期调用）
  */
 void Protocol_Execute(void);

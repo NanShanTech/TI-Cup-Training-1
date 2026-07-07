@@ -144,6 +144,36 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 /* Defines for PIN_0: GPIOB.1 with pinCMx 13 on package pin 21 */
 #define LED_PIN_0_PIN                                            (DL_GPIO_PIN_1)
 #define LED_PIN_0_IOMUX                                          (IOMUX_PINCM13)
+/* Port definition for Pin Group PIN1 */
+#define PIN1_PORT                                                        (GPIOC)
+
+/* Defines for PIN_1: GPIOC.16 with pinCMx 69 on package pin 35 */
+#define PIN1_PIN_1_PIN                                          (DL_GPIO_PIN_16)
+#define PIN1_PIN_1_IOMUX                                         (IOMUX_PINCM69)
+/* Port definition for Pin Group PIN2 */
+#define PIN2_PORT                                                        (GPIOC)
+
+/* Defines for PIN_2: GPIOC.17 with pinCMx 70 on package pin 36 */
+#define PIN2_PIN_2_PIN                                          (DL_GPIO_PIN_17)
+#define PIN2_PIN_2_IOMUX                                         (IOMUX_PINCM70)
+/* Port definition for Pin Group PIN3 */
+#define PIN3_PORT                                                        (GPIOC)
+
+/* Defines for PIN_3: GPIOC.15 with pinCMx 64 on package pin 11 */
+#define PIN3_PIN_3_PIN                                          (DL_GPIO_PIN_15)
+#define PIN3_PIN_3_IOMUX                                         (IOMUX_PINCM64)
+/* Port definition for Pin Group PIN4 */
+#define PIN4_PORT                                                        (GPIOC)
+
+/* Defines for PIN_4: GPIOC.13 with pinCMx 62 on package pin 12 */
+#define PIN4_PIN_4_PIN                                          (DL_GPIO_PIN_13)
+#define PIN4_PIN_4_IOMUX                                         (IOMUX_PINCM62)
+/* Port definition for Pin Group PIN5 */
+#define PIN5_PORT                                                        (GPIOC)
+
+/* Defines for PIN_5: GPIOC.14 with pinCMx 63 on package pin 13 */
+#define PIN5_PIN_5_PIN                                          (DL_GPIO_PIN_14)
+#define PIN5_PIN_5_IOMUX                                         (IOMUX_PINCM63)
 
 
 

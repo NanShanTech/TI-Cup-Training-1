@@ -123,8 +123,28 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 
     DL_GPIO_initDigitalOutput(LED_PIN_0_IOMUX);
 
+    DL_GPIO_initDigitalOutput(PIN1_PIN_1_IOMUX);
+
+    DL_GPIO_initDigitalOutput(PIN2_PIN_2_IOMUX);
+
+    DL_GPIO_initDigitalOutput(PIN3_PIN_3_IOMUX);
+
+    DL_GPIO_initDigitalOutput(PIN4_PIN_4_IOMUX);
+
+    DL_GPIO_initDigitalOutput(PIN5_PIN_5_IOMUX);
+
     DL_GPIO_clearPins(LED_PORT, LED_PIN_0_PIN);
     DL_GPIO_enableOutput(LED_PORT, LED_PIN_0_PIN);
+    DL_GPIO_clearPins(GPIOC, PIN1_PIN_1_PIN |
+		PIN2_PIN_2_PIN |
+		PIN3_PIN_3_PIN |
+		PIN4_PIN_4_PIN |
+		PIN5_PIN_5_PIN);
+    DL_GPIO_enableOutput(GPIOC, PIN1_PIN_1_PIN |
+		PIN2_PIN_2_PIN |
+		PIN3_PIN_3_PIN |
+		PIN4_PIN_4_PIN |
+		PIN5_PIN_5_PIN);
 
 }
 

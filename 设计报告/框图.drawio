@@ -1,0 +1,60 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0">
+  <diagram name="第 1 页" id="kG1ATrybBTE5efjjLt7C">
+    <mxGraphModel dx="574" dy="334" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&amp;nbsp;MSPM0G3519" vertex="1">
+          <mxGeometry height="37" width="120" x="207" y="351" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;flipH=0;legacyAnchorPoints=0;flipV=1;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;无失真电路&lt;/font&gt;" vertex="1">
+          <mxGeometry height="38" width="72" x="61" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;flipH=0;legacyAnchorPoints=0;flipV=1;" value="&lt;div style=&quot;line-height: 80%;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;顶部失真电路&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="38" width="72" x="146" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;flipH=0;legacyAnchorPoints=0;flipV=1;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;底部失真电路&lt;/font&gt;" vertex="1">
+          <mxGeometry height="38" width="72" x="232" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;flipH=0;legacyAnchorPoints=0;flipV=1;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;双向失真电路&lt;/font&gt;" vertex="1">
+          <mxGeometry height="38" width="72" x="317" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;flipH=0;legacyAnchorPoints=0;flipV=1;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;交越失真电路&lt;/font&gt;" vertex="1">
+          <mxGeometry height="38" width="72" x="402" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="串口屏" vertex="1">
+          <mxGeometry height="60" width="120" x="207" y="469" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="信号继电器" vertex="1">
+          <mxGeometry height="40" width="100" x="217" y="162" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-23" edge="1" parent="1" source="rQJuyv8b3e7-aL1avr9L-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="rQJuyv8b3e7-aL1avr9L-22" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="跨阻放大器" vertex="1">
+          <mxGeometry height="34" width="78" x="228" y="241" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-36" edge="1" parent="1" source="rQJuyv8b3e7-aL1avr9L-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="rQJuyv8b3e7-aL1avr9L-1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-22" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="程控放大器" vertex="1">
+          <mxGeometry height="32" width="78" x="228" y="298" as="geometry" />
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-33" edge="1" parent="1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.54;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="266.83" y="469" as="sourcePoint" />
+            <mxPoint x="267.03000000000003" y="389" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rQJuyv8b3e7-aL1avr9L-34" connectable="0" parent="rQJuyv8b3e7-aL1avr9L-33" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="人机交互" vertex="1">
+          <mxGeometry relative="1" x="0.1" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VJ0jfauQ2Kp1FJoPWvnO-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="60" width="120" x="304" y="682" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
