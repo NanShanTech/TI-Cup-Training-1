@@ -40,6 +40,11 @@ const char *Protocol_DistName(MeasureMode_t mode);
 void Protocol_ParseByte(uint8_t byte);
 
 /**
+ * @brief  继电器引脚初始化（k1/k2 默认拉低）
+ */
+void Relay_Init(void);
+
+/**
  * @brief  更新继电器输出（根据模式设置对应引脚）
  * @param  mode  当前测量模式
  */
@@ -49,6 +54,11 @@ void Relay_Update(MeasureMode_t mode);
  * @brief  执行当前模式对应动作（在任务中周期调用）
  */
 void Protocol_Execute(void);
+
+/**
+ * @brief  发送待处理的继电器响应（在 UART_Proc 中调用）
+ */
+void Protocol_FlushRelayResponse(void);
 
 #ifdef __cplusplus
 }

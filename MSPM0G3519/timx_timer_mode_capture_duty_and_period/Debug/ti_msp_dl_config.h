@@ -90,11 +90,17 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 
 
 /* Defines for TIMER_0 */
-#define TIMER_0_INST                                                     (TIMA0)
-#define TIMER_0_INST_IRQHandler                                 TIMA0_IRQHandler
-#define TIMER_0_INST_INT_IRQN                                   (TIMA0_INT_IRQn)
+#define TIMER_0_INST                                                     (TIMA1)
+#define TIMER_0_INST_IRQHandler                                 TIMA1_IRQHandler
+#define TIMER_0_INST_INT_IRQN                                   (TIMA1_INT_IRQn)
 #define TIMER_0_INST_LOAD_VALUE                                          (1249U)
 #define TIMER_0_INST_PUB_0_CH                                                (1)
+/* Defines for TIMER_1 */
+#define TIMER_1_INST                                                     (TIMA0)
+#define TIMER_1_INST_IRQHandler                                 TIMA0_IRQHandler
+#define TIMER_1_INST_INT_IRQN                                   (TIMA0_INT_IRQn)
+#define TIMER_1_INST_LOAD_VALUE                                          (2499U)
+#define TIMER_1_INST_PUB_0_CH                                                (2)
 
 
 
@@ -138,12 +144,6 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 #define ADC12_0_INST_DMA_TRIGGER                      (DMA_ADC1_EVT_GEN_BD_TRIG)
 
 
-/* Port definition for Pin Group LED */
-#define LED_PORT                                                         (GPIOB)
-
-/* Defines for PIN_0: GPIOB.1 with pinCMx 13 on package pin 21 */
-#define LED_PIN_0_PIN                                            (DL_GPIO_PIN_1)
-#define LED_PIN_0_IOMUX                                          (IOMUX_PINCM13)
 /* Port definition for Pin Group PIN1 */
 #define PIN1_PORT                                                        (GPIOC)
 
@@ -174,6 +174,15 @@ bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 /* Defines for PIN_5: GPIOC.14 with pinCMx 63 on package pin 13 */
 #define PIN5_PIN_5_PIN                                          (DL_GPIO_PIN_14)
 #define PIN5_PIN_5_IOMUX                                         (IOMUX_PINCM63)
+/* Port definition for Pin Group KEY */
+#define KEY_PORT                                                         (GPIOB)
+
+/* Defines for k1: GPIOB.6 with pinCMx 23 on package pin 40 */
+#define KEY_k1_PIN                                               (DL_GPIO_PIN_6)
+#define KEY_k1_IOMUX                                             (IOMUX_PINCM23)
+/* Defines for k2: GPIOB.8 with pinCMx 25 on package pin 42 */
+#define KEY_k2_PIN                                               (DL_GPIO_PIN_8)
+#define KEY_k2_IOMUX                                             (IOMUX_PINCM25)
 
 
 
@@ -187,6 +196,7 @@ void SYSCFG_DL_SYSCTL_init(void);
 
 bool SYSCFG_DL_SYSCTL_SYSPLL_init(void);
 void SYSCFG_DL_TIMER_0_init(void);
+void SYSCFG_DL_TIMER_1_init(void);
 void SYSCFG_DL_HMI_init(void);
 void SYSCFG_DL_ADC12_0_init(void);
 void SYSCFG_DL_DMA_init(void);

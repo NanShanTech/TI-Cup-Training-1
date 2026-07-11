@@ -2,6 +2,7 @@
 
 #include "ti_msp_dl_config.h"
 #include <ti/driverlib/m0p/dl_core.h>
+#include "My_Task/protocol.h"
 
 #define BSP_RESET_VECTKEY          (0x5FAUL << 16U)
 #define SAMPLE_TIMER_CLOCK_HZ      (40000000UL)  /* BUSCLK=80MHz, /2=40MHz */
@@ -11,6 +12,7 @@ static uint32_t s_sample_timer_rate_hz = BSP_ADC_DEFAULT_SAMPLE_RATE;
 void BSP_Init(void)
 {
     SYSCFG_DL_init();
+    Relay_Init();
 }
 
 uint32_t BSP_GetSystemClock(void)

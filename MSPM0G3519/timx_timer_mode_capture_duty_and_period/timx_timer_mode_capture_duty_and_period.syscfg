@@ -22,6 +22,7 @@ const GPIO6         = GPIO.addInstance();
 const SYSTICK       = scripting.addModule("/ti/driverlib/SYSTICK");
 const TIMER         = scripting.addModule("/ti/driverlib/TIMER", {}, false);
 const TIMER1        = TIMER.addInstance();
+const TIMER2        = TIMER.addInstance();
 const UART          = scripting.addModule("/ti/driverlib/UART", {}, false);
 const UART1         = UART.addInstance();
 const ProjectConfig = scripting.addModule("/ti/project_config/ProjectConfig");
@@ -77,42 +78,44 @@ Board.peripheral.swdioPin.$assign = "PA19";
 DMA.enableBurst      = true;
 DMA.enableRoundRobin = true;
 
-GPIO1.port                          = "PORTB";
-GPIO1.$name                         = "LED";
-GPIO1.portSegment                   = "Lower";
-GPIO1.associatedPins[0].$name       = "PIN_0";
-GPIO1.associatedPins[0].ioStructure = "SD";
-GPIO1.associatedPins[0].pin.$assign = "PB1";
+GPIO1.$name                                 = "PIN1";
+GPIO1.associatedPins[0].$name               = "PIN_1";
+GPIO1.associatedPins[0].assignedPort        = "PORTC";
+GPIO1.associatedPins[0].assignedPortSegment = "Upper";
+GPIO1.associatedPins[0].pin.$assign         = "PC16";
 
-GPIO2.$name                                 = "PIN1";
-GPIO2.associatedPins[0].$name               = "PIN_1";
+GPIO2.$name                                 = "PIN2";
+GPIO2.associatedPins[0].$name               = "PIN_2";
 GPIO2.associatedPins[0].assignedPort        = "PORTC";
 GPIO2.associatedPins[0].assignedPortSegment = "Upper";
-GPIO2.associatedPins[0].pin.$assign         = "PC16";
+GPIO2.associatedPins[0].pin.$assign         = "PC17";
 
-GPIO3.$name                                 = "PIN2";
-GPIO3.associatedPins[0].$name               = "PIN_2";
+GPIO3.$name                                 = "PIN3";
+GPIO3.associatedPins[0].$name               = "PIN_3";
 GPIO3.associatedPins[0].assignedPort        = "PORTC";
-GPIO3.associatedPins[0].assignedPortSegment = "Upper";
-GPIO3.associatedPins[0].pin.$assign         = "PC17";
+GPIO3.associatedPins[0].assignedPortSegment = "Lower";
+GPIO3.associatedPins[0].pin.$assign         = "PC15";
 
-GPIO4.$name                                 = "PIN3";
-GPIO4.associatedPins[0].$name               = "PIN_3";
+GPIO4.$name                                 = "PIN4";
+GPIO4.associatedPins[0].$name               = "PIN_4";
 GPIO4.associatedPins[0].assignedPort        = "PORTC";
 GPIO4.associatedPins[0].assignedPortSegment = "Lower";
-GPIO4.associatedPins[0].pin.$assign         = "PC15";
+GPIO4.associatedPins[0].pin.$assign         = "PC13";
 
-GPIO5.$name                                 = "PIN4";
-GPIO5.associatedPins[0].$name               = "PIN_4";
+GPIO5.$name                                 = "PIN5";
+GPIO5.associatedPins[0].$name               = "PIN_5";
 GPIO5.associatedPins[0].assignedPort        = "PORTC";
 GPIO5.associatedPins[0].assignedPortSegment = "Lower";
-GPIO5.associatedPins[0].pin.$assign         = "PC13";
+GPIO5.associatedPins[0].pin.$assign         = "PC14";
 
-GPIO6.$name                                 = "PIN5";
-GPIO6.associatedPins[0].$name               = "PIN_5";
-GPIO6.associatedPins[0].assignedPort        = "PORTC";
-GPIO6.associatedPins[0].assignedPortSegment = "Lower";
-GPIO6.associatedPins[0].pin.$assign         = "PC14";
+GPIO6.$name                         = "KEY";
+GPIO6.port                          = "PORTB";
+GPIO6.portSegment                   = "Lower";
+GPIO6.associatedPins.create(2);
+GPIO6.associatedPins[0].$name       = "k1";
+GPIO6.associatedPins[0].pin.$assign = "PB6";
+GPIO6.associatedPins[1].$name       = "k2";
+GPIO6.associatedPins[1].pin.$assign = "PB8";
 
 const SYSCTL                 = scripting.addModule("/ti/driverlib/SYSCTL", {}, false);
 SYSCTL.forceDefaultClkConfig = true;
@@ -129,6 +132,11 @@ TIMER1.timerClkDiv                 = 2;
 TIMER1.timerPeriod                 = "31.25us";
 TIMER1.event1PublisherChannel      = 1;
 TIMER1.event1ControllerInterruptEn = ["ZERO_EVENT"];
+
+TIMER2.$name                       = "TIMER_1";
+TIMER2.timerPeriod                 = "31.25us";
+TIMER2.event1PublisherChannel      = 2;
+TIMER2.event1ControllerInterruptEn = ["ZERO_EVENT"];
 
 UART1.enableFIFO                       = true;
 UART1.enableDMARX                      = false;
@@ -162,5 +170,6 @@ pinFunction4.peripheral.hfxInPin.$suggestSolution  = "PA5";
 pinFunction4.peripheral.hfxOutPin.$suggestSolution = "PA6";
 ADC121.peripheral.adcPin0.$suggestSolution         = "PA15";
 ADC121.DMA_CHANNEL.peripheral.$suggestSolution     = "DMA_CH0";
-TIMER1.peripheral.$suggestSolution                 = "TIMA0";
+TIMER1.peripheral.$suggestSolution                 = "TIMA1";
+TIMER2.peripheral.$suggestSolution                 = "TIMA0";
 UART1.peripheral.$suggestSolution                  = "UART0";

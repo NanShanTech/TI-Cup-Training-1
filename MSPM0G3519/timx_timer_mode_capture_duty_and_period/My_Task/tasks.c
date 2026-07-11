@@ -117,6 +117,9 @@ void UART_Proc(void)
         Protocol_ParseByte(buf[i]);
     }
 
+    /* 发送继电器翻转响应 */
+    Protocol_FlushRelayResponse();
+
     /* 清空环形缓冲区残余 */
     while (Serial_RxAvailable()) {
         Serial_RxRead();

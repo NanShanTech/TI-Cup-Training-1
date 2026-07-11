@@ -41,6 +41,7 @@
 #include "ti_msp_dl_config.h"
 
 DL_TimerA_backupConfig gTIMER_0Backup;
+DL_TimerA_backupConfig gTIMER_1Backup;
 
 /*
  *  ======== SYSCFG_DL_init ========
@@ -53,12 +54,14 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     /* Module-Specific Initializations*/
     SYSCFG_DL_SYSCTL_init();
     SYSCFG_DL_TIMER_0_init();
+    SYSCFG_DL_TIMER_1_init();
     SYSCFG_DL_HMI_init();
     SYSCFG_DL_ADC12_0_init();
     SYSCFG_DL_DMA_init();
     SYSCFG_DL_SYSTICK_init();
     /* Ensure backup structures have no valid state */
 	gTIMER_0Backup.backupRdy 	= false;
+	gTIMER_1Backup.backupRdy 	= false;
 
 
 }
@@ -71,6 +74,7 @@ SYSCONFIG_WEAK bool SYSCFG_DL_saveConfiguration(void)
     bool retStatus = true;
 
 	retStatus &= DL_TimerA_saveConfiguration(TIMER_0_INST, &gTIMER_0Backup);
+	retStatus &= DL_TimerA_saveConfiguration(TIMER_1_INST, &gTIMER_1Backup);
 
     return retStatus;
 }
@@ -81,6 +85,7 @@ SYSCONFIG_WEAK bool SYSCFG_DL_restoreConfiguration(void)
     bool retStatus = true;
 
 	retStatus &= DL_TimerA_restoreConfiguration(TIMER_0_INST, &gTIMER_0Backup, false);
+	retStatus &= DL_TimerA_restoreConfiguration(TIMER_1_INST, &gTIMER_1Backup, false);
 
     return retStatus;
 }
@@ -91,6 +96,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_GPIO_reset(GPIOB);
     DL_GPIO_reset(GPIOC);
     DL_TimerA_reset(TIMER_0_INST);
+    DL_TimerA_reset(TIMER_1_INST);
     DL_UART_Extend_reset(HMI_INST);
     DL_ADC12_reset(ADC12_0_INST);
 
@@ -100,6 +106,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_GPIO_enablePower(GPIOB);
     DL_GPIO_enablePower(GPIOC);
     DL_TimerA_enablePower(TIMER_0_INST);
+    DL_TimerA_enablePower(TIMER_1_INST);
     DL_UART_Extend_enablePower(HMI_INST);
     DL_ADC12_enablePower(ADC12_0_INST);
 
@@ -121,8 +128,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_initDigitalOutput(LED_PIN_0_IOMUX);
-
     DL_GPIO_initDigitalOutput(PIN1_PIN_1_IOMUX);
 
     DL_GPIO_initDigitalOutput(PIN2_PIN_2_IOMUX);
@@ -133,8 +138,14 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 
     DL_GPIO_initDigitalOutput(PIN5_PIN_5_IOMUX);
 
-    DL_GPIO_clearPins(LED_PORT, LED_PIN_0_PIN);
-    DL_GPIO_enableOutput(LED_PORT, LED_PIN_0_PIN);
+    DL_GPIO_initDigitalOutput(KEY_k1_IOMUX);
+
+    DL_GPIO_initDigitalOutput(KEY_k2_IOMUX);
+
+    DL_GPIO_clearPins(KEY_PORT, KEY_k1_PIN |
+		KEY_k2_PIN);
+    DL_GPIO_enableOutput(KEY_PORT, KEY_k1_PIN |
+		KEY_k2_PIN);
     DL_GPIO_clearPins(GPIOC, PIN1_PIN_1_PIN |
 		PIN2_PIN_2_PIN |
 		PIN3_PIN_3_PIN |
@@ -295,6 +306,45 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_0_init(void) {
     DL_TimerA_enableEvent(TIMER_0_INST, DL_TIMERA_EVENT_ROUTE_1, (DL_TIMERA_EVENT_ZERO_EVENT));
 
     DL_TimerA_setPublisherChanID(TIMER_0_INST, DL_TIMERA_PUBLISHER_INDEX_0, TIMER_0_INST_PUB_0_CH);
+
+
+
+}
+
+/*
+ * Timer clock configuration to be sourced by BUSCLK /  (80000000 Hz)
+ * timerClkFreq = (timerClkSrc / (timerClkDivRatio * (timerClkPrescale + 1)))
+ *   80000000 Hz = 80000000 Hz / (1 * (0 + 1))
+ */
+static const DL_TimerA_ClockConfig gTIMER_1ClockConfig = {
+    .clockSel    = DL_TIMER_CLOCK_BUSCLK,
+    .divideRatio = DL_TIMER_CLOCK_DIVIDE_1,
+    .prescale    = 0U,
+};
+
+/*
+ * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
+ * TIMER_1_INST_LOAD_VALUE = (31.25us * 80000000 Hz) - 1
+ */
+static const DL_TimerA_TimerConfig gTIMER_1TimerConfig = {
+    .period     = TIMER_1_INST_LOAD_VALUE,
+    .timerMode  = DL_TIMER_TIMER_MODE_ONE_SHOT,
+    .startTimer = DL_TIMER_STOP,
+};
+
+SYSCONFIG_WEAK void SYSCFG_DL_TIMER_1_init(void) {
+
+    DL_TimerA_setClockConfig(TIMER_1_INST,
+        (DL_TimerA_ClockConfig *) &gTIMER_1ClockConfig);
+
+    DL_TimerA_initTimerMode(TIMER_1_INST,
+        (DL_TimerA_TimerConfig *) &gTIMER_1TimerConfig);
+    DL_TimerA_enableClock(TIMER_1_INST);
+
+
+    DL_TimerA_enableEvent(TIMER_1_INST, DL_TIMERA_EVENT_ROUTE_1, (DL_TIMERA_EVENT_ZERO_EVENT));
+
+    DL_TimerA_setPublisherChanID(TIMER_1_INST, DL_TIMERA_PUBLISHER_INDEX_0, TIMER_1_INST_PUB_0_CH);
 
 
 

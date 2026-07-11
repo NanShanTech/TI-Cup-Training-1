@@ -87,7 +87,8 @@ BSP/bsp.o: ../BSP/bsp.c \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_vref.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_wwdt.h \
  D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_interrupt.h \
- D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_systick.h
+ D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_systick.h \
+ D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/My_Task/protocol.h
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/bsp.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/adc/adc.h:
 D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/BSP/uart/uart.h:
@@ -175,3 +176,4 @@ D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_vref.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/dl_wwdt.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_interrupt.h:
 D:/ti/ccs2051/mspm0_sdk_2_10_00_04/source/ti/driverlib/m0p/dl_systick.h:
+D:/My_Git/TI-Cup-Training-1/MSPM0G3519/timx_timer_mode_capture_duty_and_period/My_Task/protocol.h:
